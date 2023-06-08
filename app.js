@@ -32,7 +32,7 @@ const s3 = new AWS.S3({
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+app.use('/fotos', express.static(path.join(__dirname, 'public', 'fotos')));
 
 
 app.get('/', (req, res) => {
@@ -110,8 +110,8 @@ app.get('/edit/:id', async (req, res) => {
     const lab12 = row[0];
 
     if (lab12 && lab12.foto) {
-      const imageUrl = `/images/${lab12.foto}`; // URL de la foto
-      res.render('edit', { lab12: lab12, imageUrl: imageUrl });
+      const fotoUrl = `/fotos/${lab12.foto}`; // URL de la foto
+      res.render('edit', { lab12: lab12, fotoUrl: fotoUrl });
     } else {
       // Manejo de error si no se encuentra el registro o no hay foto
       res.status(404).send('Registro no encontrado o sin foto');
