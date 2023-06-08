@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
   });
 });
 
+
 app.get('/delete/:id', async (req, res) => {
   const id = req.params.id;
 
@@ -121,6 +122,19 @@ app.get('/edit/:id', async (req, res) => {
     res.status(500).send('Error al obtener el registro.');
   }
 });
+
+app.post('/search', (req, res) => {
+  const apellido = req.body.apellido;
+
+  const query = 'SELECT * FROM lab12 WHERE apellidos LIKE ?';
+  const searchValue = `%${apellido}%`;
+
+  connection.query(query, [searchValue], (error, results, fields) => {
+    if (error) throw error;
+    res.render('index', { data: results });
+  });
+});
+
 
 app.post('/update', upload.single('foto'), async (req, res) => {
   const id = req.body.id;
